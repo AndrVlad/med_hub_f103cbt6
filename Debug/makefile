@@ -60,8 +60,8 @@ all: main-build
 main-build: med_hub_f103cbt6.elf secondary-outputs
 
 # Tool invocations
-med_hub_f103cbt6.elf med_hub_f103cbt6.map: $(OBJS) $(USER_OBJS) C:\Users\Admin\STM32CubeIDE\workspace_1.12.0\med_hub_f103cbt6\STM32F103CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "med_hub_f103cbt6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Admin\STM32CubeIDE\workspace_1.12.0\med_hub_f103cbt6\STM32F103CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="med_hub_f103cbt6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+med_hub_f103cbt6.elf med_hub_f103cbt6.map: $(OBJS) $(USER_OBJS) C:\Users\vlado\STM32CubeIDE\workspace_1.12.0\med_hub_f103cbt6\STM32F103CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "med_hub_f103cbt6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\vlado\STM32CubeIDE\workspace_1.12.0\med_hub_f103cbt6\STM32F103CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="med_hub_f103cbt6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

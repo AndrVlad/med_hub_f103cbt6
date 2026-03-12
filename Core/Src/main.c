@@ -51,7 +51,7 @@ UART_HandleTypeDef huart1;
 bool uart1_rx_complete, spi_transaction_complete = false;
 uint8_t uart1_rx_buf[1], data = {0};
 uint8_t request_buf[264] = {0x1};
-uint8_t request[2] = {0xA,0xB};
+uint8_t request[2] = {0xC,0xD};
 uint8_t response[2] = {0};
 uint8_t response_buf[264] = {};
 /* USER CODE END PV */
@@ -165,7 +165,7 @@ int main(void)
 	  }
 
 	  if (spi_transaction_complete) {
-		  HAL_UART_Transmit(&huart1, response_buf, 264,1000);
+		  HAL_UART_Transmit(&huart1, response, 2,1000);
 		  spi_transaction_complete = false;
 	  }
 
