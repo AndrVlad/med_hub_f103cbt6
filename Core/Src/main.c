@@ -51,8 +51,8 @@ UART_HandleTypeDef huart1;
 bool uart1_rx_complete, spi_transaction_complete = false;
 uint8_t uart1_rx_buf[1], data = {0};
 uint8_t request_buf[264] = {0x1};
-uint8_t request[2] = {0xC,0xD};
-uint8_t response[2] = {0};
+//uint8_t request[2] = {0xC,0xD};
+//uint8_t response[2] = {0};
 uint8_t response_buf[264] = {};
 /* USER CODE END PV */
 
@@ -71,20 +71,23 @@ void SPI_SendReceive();
 void parserPC() {
 	switch(uart1_rx_buf[0]) {
 	case 0xA1:
-		request_buf[2] = 0xA2;
-
+		request_buf[2] = 0xA1;
+		request_buf[263] = 0xA1;
 		SPI_SendReceive();
 		break;
 	case 0xA2:
 		request_buf[2] = 0xA2;
+		request_buf[263] = 0xA2;
 		SPI_SendReceive();
 		break;
 	case 0xA3:
 		request_buf[2] = 0xA3;
+		request_buf[263] = 0xA3;
 		SPI_SendReceive();
 		break;
 	case 0xA4:
 		request_buf[2] = 0xA4;
+		request_buf[263] = 0xA4;
 		SPI_SendReceive();
 		break;
 	}
@@ -93,14 +96,14 @@ void parserPC() {
 void SPI_SendReceive()
 {
     // Очистка RX буфера
-    //memset(response_buf, 0, 264);
+    memset(response_buf, 0, 264);
     //memset(request_buf, 0, 10);
     cs_set();
     //HAL_SPI_TransmitReceive(&hspi1, request_buf, response_buf,264,2000);
     //cs_reset();
 
     //HAL_SPI_TransmitReceive(&hspi2, request_buf, response_buf,10,500);
-    HAL_SPI_TransmitReceive_IT(&hspi1, request, response, 2);
+    HAL_SPI_TransmitReceive_IT(&hspi1, request_buf, response_buf, 264);
 
 }
 
@@ -165,7 +168,7 @@ int main(void)
 	  }
 
 	  if (spi_transaction_complete) {
-		  HAL_UART_Transmit(&huart1, response, 2,1000);
+		  HAL_UART_Transmit(&huart1, response_buf, 264,1000);
 		  spi_transaction_complete = false;
 	  }
 
